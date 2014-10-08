@@ -5,7 +5,7 @@
     <key>Description</key>
     <string>Downloads the latest Java 8 JDK from Oracle.</string>
     <key>Identifier</key>
-    <string>au.edu.nsw.chevalier.it.autopkgrecipes.munki.OracleJava8JDK</string>
+    <string>com.github.ChevalierCollege.autopkgrecipes.download.OracleJava8JDK</string>
     <key>Input</key>
     <dict>
         <key>NAME</key>
