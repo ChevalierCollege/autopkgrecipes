@@ -3,17 +3,17 @@
 <plist version="1.0">
 <dict>
 	<key>Description</key>
-	<string>Downloads the current release version of ChronoSync and imports into Munki.</string>
+	<string>Downloads the current release version of ChronoAgent and imports into Munki.</string>
 	<key>Identifier</key>
-	<string>au.edu.nsw.chevalier.it.munki.ChronoSync</string>
+	<string>au.edu.nsw.chevalier.it.munki.ChronoAgent</string>
 	<key>Input</key>
 	<dict>
 		<key>NAME</key>
-		<string>ChronoSync</string>
+		<string>ChronoAgent</string>
 		<key>MUNKIIMPORT_PKG_NAME</key>
 		<string>Install.pkg</string>
 		<key>MUNKI_REPO_SUBDIR</key>
-		<string>tools/econ/chronosync</string>
+		<string>tools/econ/chronoagent</string>
 		<key>pkginfo</key>
 		<dict>
 			<key>catalogs</key>
@@ -21,9 +21,9 @@
 				<string>testing</string>
 			</array>
 			<key>description</key>
-			<string>A Great GUI to Sync almost anything from anywhere to somewhere else.</string>
+			<string>Used in conjunction with ChronoSync for network based syncing and backups.</string>
 			<key>display_name</key>
-			<string>ChronoSync</string>
+			<string>ChronoAgent</string>
 			<key>minimum_os_version</key>
 			<string>10.5</string>
 			<key>name</key>
@@ -38,21 +38,15 @@
 			<string>#!/bin/sh
 
 ## Modified from uninstall.pkg
-killall ChronoSync
-killall ChronoSyncBackgrounder
+killall CAMonitorBackgrounder
 
 ## Remove applications
-/bin/rm -r /Applications/ChronoSync.app
-
-/bin/rm -r "/Library/Application Support/ChronoSync/ChronoAgentLocal.app"
-/bin/rm -r "/Library/Application Support/ChronoSync/ChronoSyncBackgrounder.app"
-/bin/rm -r "/Library/Application Support/ChronoSync/WakeToSyncTool"
+/bin/rm -r "/Library/Application Support/ChronoSync/ChronoAgentTool"
+/bin/rm -r "/Library/LaunchDaemons/com.econtechnologies.ChronoAgentRemote"
+/bin/rm -r "/Library/PreferencePanes/ChronoAgent.prefPane"
 
 ## Forget we ever got installed
-/usr/sbin/pkgutil --forget com.econtechnologies.pkg.ChronoSyncApplication
-/usr/sbin/pkgutil --forget com.econtechnologies.pkg.ChronoSync
-/usr/sbin/pkgutil --forget com.econtechnologies.pkg.ChronoAgentLocal
-/usr/sbin/pkgutil --forget com.econtechnologies.pkg.ChronoSyncUpdateAll
+/usr/sbin/pkgutil --forget com.econtechnologies.pkg.ChronoAgent
 
 exit 0
 </string>
@@ -61,7 +55,7 @@ exit 0
 	<key>MinimumVersion</key>
 	<string>0.2.0</string>
 	<key>ParentRecipe</key>
-	<string>au.edu.nsw.chevalier.it.download.chronosync</string>
+	<string>au.edu.nsw.chevalier.it.download.chronoagent</string>
 	<key>Process</key>
 	<array>
 		<dict>
@@ -79,7 +73,7 @@ exit 0
 			<key>Arguments</key>
 			<dict>
 				<key>pkg_payload_path</key>
-				<string>%RECIPE_CACHE_DIR%/unpack/ChronoSync.pkg/Payload</string>
+				<string>%RECIPE_CACHE_DIR%/unpack/ChronoAgent.pkg/Payload</string>
 				<key>destination_path</key>
 				<string>%RECIPE_CACHE_DIR%/payload</string>
 			</dict>
@@ -93,10 +87,9 @@ exit 0
 				<string>%RECIPE_CACHE_DIR%/payload</string>
 				<key>installs_item_paths</key>
 				<array>
-					<string>/Applications/ChronoSync.app</string>
-					<string>/Library/Application Support/ChronoSync/ChronoAgentLocal.app</string>
-					<string>/Library/Application Support/ChronoSync/ChronoSyncBackgrounder.app</string>
-					<string>/Library/Application Support/ChronoSync/WakeToSyncTool</string>
+					<string>/Library/PreferencePanes/ChronoAgent.prefPane</string>
+					<string>/Library/Application Support/ChronoSync/ChronoAgentTool</string>
+					<string>/Library/LaunchDaemons/com.econtechnologies.ChronoAgentRemote</string>
 				</array>
 			</dict>
 			<key>Processor</key>
@@ -115,7 +108,7 @@ exit 0
 			<key>Arguments</key>
 			<dict>
 				<key>input_plist_path</key>
-				<string>%RECIPE_CACHE_DIR%/payload/Applications/ChronoSync.app/Contents/Info.plist</string>
+				<string>%RECIPE_CACHE_DIR%/payload/Library/PreferencePanes/ChronoAgent.prefPane/Contents/Info.plist</string>
 				<key>plist_version_key</key>
 				<string>CFBundleShortVersionString</string>
 			</dict>
